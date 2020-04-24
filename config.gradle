@@ -20,4 +20,5 @@ ext {
     keyPassword = getParameter('keyPassword')
     storeFile = getParameter('storeFile')
     storePassword = getParameter('storePassword')
+    qqOpenAppId = getParameter('qqOpenAppId')
 }

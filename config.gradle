@@ -1,0 +1,23 @@
+/**
+ * Get build parameter in the following priority:
+ * + Environment variable
+ * + Gradle properties (gradle.properties)
+ * + credentials.properties
+ * For simplicity, no 'dot' is allowed
+ */
+def prop = null
+def propFile = rootProject.file("local.properties")
+if (propFile.canRead()) {
+    prop = new Properties()
+    prop.load(new FileInputStream(propFile))
+}
+def getParameter = { name ->
+    return System.getenv(name) ?: project.findProperty(name) ?: (prop?.getProperty(name)) ?: ''
+}
+
+ext {
+    keyAlias = getParameter('keyAlias')
+    keyPassword = getParameter('keyPassword')
+    storeFile = getParameter('storeFile')
+    storePassword = getParameter('storePassword')
+}
